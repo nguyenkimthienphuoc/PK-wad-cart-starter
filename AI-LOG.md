@@ -14,9 +14,28 @@ Changed: None.
 Rejected: Suggestions regarding the ambiguity of the "Build" definition, as `npm test` serves as our project verification step.
 By hand: Decided whether to incorporate the newly suggested rules into RULES.md based on Copilot's review.
 
-Tool: GitHub Copilot Chat
-Asked for: Compare dependency-free custom checker vs standard lint/format tools
-Kept: Custom checker recommendation
-Changed: Chỉ giữ ba quy tắc định dạng đơn giản, nếu bạn quyết định như vậy
-Rejected: Standard tools requiring external dependencies
-By hand: Tự chọn phương án dựa trên README và rubric
+## 2026-10-12 — Design Custom Format Checker and Review Implementation Plan
+Tool: GitHub Copilot
+Asked for: Explain how a dependency-free custom format checker works and propose an implementation plan without modifying files.
+Kept: Recursive scanning of .js files in src/, test/, and scripts/; checking leading tab indentation and final newline; reporting violations without modifying files.
+Changed: Defined the file scope, allowed empty files, accepted LF and CRLF, and limited the checker to two formatting rules.
+Rejected: Rejecting all tab characters, automatic formatting fixes, and additional formatting rules.
+By hand: Reviewed Copilot's explanations, selected the checker rules and edge-case behavior, and evaluated the proposed implementation plan.
+
+## 2026-10-12 — Design Custom Format Checker and Review Implementation Plan
+
+Tool: GitHub Copilot
+Asked for: Explain how a dependency-free custom format checker works and propose an implementation plan without modifying files.
+Kept: Recursive scanning of .js files in src/, test/, and scripts/; checking leading tab indentation and final newline; reporting violations without modifying files.
+Changed: Defined the file scope, allowed empty files, accepted LF and CRLF, and chose a separate `npm run check` command instead of the proposed `pretest` script.
+Rejected: Rejecting all tab characters, automatic formatting fixes, additional formatting rules, and modifying the behavior of `npm test` through `pretest`.
+By hand: Reviewed Copilot's explanations, selected the formatting rules and edge-case behavior, and decided to keep `npm test` separate from the combined quality gate.
+
+## 2026-10-12 — Implement Custom Format Checker and Quality Gate
+
+Tool: GitHub Copilot
+Asked for: Implement the approved custom format checker and npm scripts without modifying the cart implementation or existing tests.
+Kept: Recursive scanning of JavaScript files, two formatting rules, error reporting, and separate `format:check` and `check` commands.
+Changed: Replaced the original `pretest` proposal with a separate `npm run check` command while keeping `npm test` unchanged.
+Rejected: Additional dependencies, automatic formatting fixes, and changes to existing cart source or tests.
+By hand: Reviewed the checker implementation and manually created a temporary JavaScript file with tab indentation and no final newline. Confirmed that both violations were detected and the checker returned exit code 1. Removed the temporary file and verified that the checker passed all 3 JavaScript files.
